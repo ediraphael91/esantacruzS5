@@ -32,29 +32,30 @@ public partial class vHome : ContentPage
         ListaPersonas.ItemsSource = App.personrepo.GetAllPeople();
     }
 
-    private void btnEliminar_Clicked(object sender, EventArgs e)
+    private async void btnEliminar_Clicked(object sender, EventArgs e)
     {
-
         status.Text = "";
 
         if (selectedPerson != null)
         {
-            App.personrepo.DeletePerson(selectedPerson.Id);
-            status.Text = App.personrepo.StatusMessage;
-            ListaPersonas.ItemsSource = App.personrepo.GetAllPeople();
-            selectedPerson = null; // Clear the selection
-            selectedPerson = null;
-            txtNombre.Text = string.Empty;
+            bool confirm = await DisplayAlert("Confirmar eliminación",
+                                              $"¿Esta seguro de que desea eliminar a {selectedPerson.Nombre}?",
+                                              "Sí", "No");
+
+            if (confirm)
+            {
+                App.personrepo.DeletePerson(selectedPerson.Id);
+                status.Text = App.personrepo.StatusMessage;
+                ListaPersonas.ItemsSource = App.personrepo.GetAllPeople();
+                selectedPerson = null;
+                txtNombre.Text = string.Empty;
+            }
         }
         else
         {
             status.Text = "Seleccione una persona para eliminar";
         }
-
-
-
     }
-
     private void btnModificar_Clicked(object sender, EventArgs e)
     {
         status.Text = "";
