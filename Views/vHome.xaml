@@ -4,18 +4,20 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="vHome">
-    <VerticalStackLayout Spacing="25">
+    <VerticalStackLayout Spacing="30" Padding="10">
         <Label
-            FontSize="20"
+            FontSize="25"
             HorizontalTextAlignment="Center"
-            Text="SEMANA 5" />
+            Text="SEMANA 5" 
+            TextColor="Blue" />
         <Entry x:Name="txtNombre" Placeholder="Ingrese el nombre" />
 
         <Grid
             Padding="5"
-            ColumnSpacing="1"
-            RowSpacing="2">
+            ColumnSpacing="5"
+            RowSpacing="5">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -32,7 +34,8 @@
                 Grid.Row="0"
                 Grid.Column="0"
                 Clicked="btnInsertar_Clicked"
-                Text="Añadir persona" />
+                Text="Añadir persona"
+                BackgroundColor="Green"/>
             <Label
                 x:Name="status"
                 Grid.Row="1"
@@ -46,14 +49,30 @@
                 Clicked="btnListar_Clicked"
                 Text="Listar" />
 
-            <Button x:Name="btnEliminar"
+            <Button x:Name="btnModificar"
+                Text="Modificar"
+                Clicked="btnModificar_Clicked"
+                Grid.Row="3"
+                Grid.Column="0"
+                BackgroundColor="Yellow"
+                TextColor="Black"/>
+
+            <Button
+                x:Name="btnEliminar"
+                Grid.Row="4"
+                Grid.Column="0"
+                Clicked="btnEliminar_Clicked"
                 Text="Eliminar"
-                Clicked="btnEliminar_Clicked"/>
+                BackgroundColor="red"/>
+
 
             <CollectionView
                 x:Name="ListaPersonas"
-                Grid.Row="3"
-                Grid.Column="0">
+                Grid.Row="5"
+                Grid.Column="0"
+                SelectionChanged="OnSelectionChanged"
+                SelectionMode="Single">
+                
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -67,6 +86,9 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+
+
+
 
         </Grid>
 

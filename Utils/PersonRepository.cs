@@ -62,5 +62,51 @@ namespace esantacruzS5.Utils
             return new List<Persona>();
         
         }
+
+        public void DeletePerson(int id)
+        {
+            try
+            {
+                Init();
+                var person = conn.Table<Persona>().FirstOrDefault(p => p.Id == id);
+                if (person != null)
+                {
+                    conn.Delete(person);
+                    StatusMessage = "Persona eliminada correctamente";
+                }
+                else
+                {
+                    StatusMessage = "Persona no encontrada";
+                }
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = $"Error al eliminar: {ex.Message}";
+            }
+        }
+
+        public void UpdatePerson(Persona person)
+        {
+            try
+            {
+                Init();
+                var existingPerson = conn.Table<Persona>().FirstOrDefault(p => p.Id == person.Id);
+                if (existingPerson != null)
+                {
+                    existingPerson.Nombre = person.Nombre;
+                    conn.Update(existingPerson);
+                    StatusMessage = "Persona modificada correctamente";
+                }
+                else
+                {
+                    StatusMessage = "Persona no encontrada";
+                }
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = $"Error al modificar: {ex.Message}";
+            }
+        }
+
     }
 }
